@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  web:
+    container_name: nginx
+    build: ./docker/nginx/
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html/
+    networks:
+      - internal
+  php:
+    container_name: app
+    build: ./docker/php/
+    networks:
+      - internal
+    volumes:
+      - .:/var/www/html/
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-container
+    networks:
+      - internal
+    volumes:
+      - dbdata:/var/lib/mysql/
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
