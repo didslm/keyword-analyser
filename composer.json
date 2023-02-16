@@ -1,4 +1,6 @@
 {
+    "name": "diarslm/keyword-analyser",
+    "description": "This will gather articles and analyse keywords",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
