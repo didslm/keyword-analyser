@@ -62,6 +62,9 @@
         ],
         "test-application": [
             "./vendor/bin/phpunit tests/Application"
+        ],
+        "tests": [
+            "@test-application"
         ]
     },
     "conflict": {
