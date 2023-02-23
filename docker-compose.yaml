@@ -2,6 +2,7 @@ version: '3'
 
 services:
   web:
+    platform: linux/x86_64
     container_name: nginx
     build: ./docker/nginx/
     ports:
@@ -11,14 +12,29 @@ services:
     networks:
       - internal
   php:
+    platform: linux/x86_64
     container_name: app
     build: ./docker/php/
+    depends_on:
+      - composer_installer
     networks:
       - internal
     volumes:
       - .:/var/www/html/
+    command: php-fpm
+
+  composer_installer:
+    platform: linux/x86_64
+    container_name: composer_installer
+    image: composer:latest
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html/
+    command: >
+      sh -c "composer install --optimize-autoloader && composer cc && composer dump-autoload"
 
   mysql:
+    platform: linux/x86_64
     image: mysql:5.7
     container_name: mysql-container
     networks:
