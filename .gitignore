@@ -2,6 +2,7 @@ vendor
 .idea
 .DS_Store
 var/cache
+.vscode
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
 /phpunit.xml
